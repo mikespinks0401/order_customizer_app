@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react'
 import {
   Pressable,
   SafeAreaView,
@@ -7,44 +7,49 @@ import {
   Text,
   TextInput,
   View,
-} from 'react-native';
+} from 'react-native'
 
-import OrderHeader from '../components/OrderHeader';
-import MenuItemHero from '../components/MenuItemHero';
-import QuantityControl from '../components/QuantityControl';
-import AddOnModal from '../components/AddOnModal';
-import OrderSummary from '../components/OrderSummary';
-import menuItem from '../data/menuItem';
-import { colors } from '../utils/theme';
+import OrderHeader from '../components/OrderHeader'
+import MenuItemHero from '../components/MenuItemHero'
+import QuantityControl from '../components/QuantityControl'
+import AddOnModal from '../components/AddOnModal'
+import OrderSummary from '../components/OrderSummary'
+import menuItem from '../data/menuItem'
+import { colors } from '../utils/theme'
 
 export default function OrderCustomizerScreen() {
-  const [quantity, setQuantity] = useState(1);
-  const [instructions, setInstructions] = useState('');
-  const [selectedAddOns, setSelectedAddOns] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [orderAdded, setOrderAdded] = useState(false);
+  const [quantity, setQuantity] = useState(1)
+  const [instructions, setInstructions] = useState('')
+  const [selectedAddOns, setSelectedAddOns] = useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+  const [orderAdded, setOrderAdded] = useState(false)
 
   // TODO 3: Create instructionsRef with useRef() in Step 4.
-  const instructionsRef = useRef(null);
+  const instructionsRef = useRef(null)
   function handleDecrease() {
-  setQuantity((current) => Math.max(1, current - 1));
+    setQuantity((current) => Math.max(1, current - 1))
   }
 
   function handleIncrease() {
-  setQuantity((current) => current + 1);
+    setQuantity((current) => current + 1)
   }
 
   function handleToggleAddOn(id) {
     // TODO 6: Add/remove the selected add-on ID.
+    setSelectedAddOns((current) =>
+      current.includes(id)
+        ? current.filter((itemId) => itemId !== id)
+        : [...current, id],
+    )
   }
 
   const total = useMemo(() => {
     // TODO 7: Calculate the total in Step 7.
-    return menuItem.basePrice;
-  }, [quantity, selectedAddOns]);
+    return menuItem.basePrice
+  }, [quantity, selectedAddOns])
 
   function handleAddOrder() {
-    setOrderAdded(true);
+    setOrderAdded(true)
   }
 
   return (
@@ -68,7 +73,7 @@ export default function OrderCustomizerScreen() {
             ref={instructionsRef}
             multiline
             onChangeText={setInstructions}
-            placeholder="Add a note for the kitchen"
+            placeholder='Add a note for the kitchen'
             placeholderTextColor={colors.muted}
             style={styles.input}
             value={instructions}
@@ -76,7 +81,7 @@ export default function OrderCustomizerScreen() {
 
           <Pressable
             // TODO 9: Focus the TextInput with useRef() in Step 4.
-          onPress={() => instructionsRef.current?.focus()}
+            onPress={() => instructionsRef.current?.focus()}
           >
             <Text style={styles.focusLink}>Tap to focus instructions</Text>
           </Pressable>
@@ -107,7 +112,9 @@ export default function OrderCustomizerScreen() {
         ) : null}
 
         <Pressable onPress={handleAddOrder} style={styles.primaryButton}>
-          <Text style={styles.primaryText}>Add to Cart · ${total.toFixed(2)}</Text>
+          <Text style={styles.primaryText}>
+            Add to Cart · ${total.toFixed(2)}
+          </Text>
         </Pressable>
       </ScrollView>
 
@@ -119,7 +126,7 @@ export default function OrderCustomizerScreen() {
         onClose={() => setModalVisible(false)}
       />
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -186,4 +193,4 @@ const styles = StyleSheet.create({
     marginTop: 16,
     textAlign: 'center',
   },
-});
+})
