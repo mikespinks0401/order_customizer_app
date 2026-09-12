@@ -11,6 +11,7 @@ const menuItem = {
     { id: 'addon-jalapeno', label: 'Jalapeños', price: 0.75 },
 
     // TODO 1: Add your original add-on from Step 2.
+    { id: 'addon-guac', label: 'Guacamole', price: 4.00 },
   ],
 };
 
