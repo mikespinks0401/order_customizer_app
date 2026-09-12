@@ -1,8 +1,15 @@
-import React from 'react';
-import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import OptionRow from './OptionRow';
-import { colors } from '../utils/theme';
+import React from 'react'
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
+import OptionRow from './OptionRow'
+import { colors } from '../utils/theme'
 
 export default function AddOnModal({
   visible,
@@ -13,7 +20,7 @@ export default function AddOnModal({
 }) {
   return (
     <Modal
-      animationType="slide"
+      animationType='slide'
       transparent
       visible={visible}
       onRequestClose={onClose}
@@ -23,12 +30,21 @@ export default function AddOnModal({
           <View style={styles.header}>
             <Text style={styles.title}>Choose add-ons</Text>
             <Pressable onPress={onClose}>
-              <Ionicons name="close" size={26} color={colors.text} />
+              <Ionicons name='close' size={26} color={colors.text} />
             </Pressable>
           </View>
 
           <ScrollView>
             {/* TODO 2: Render OptionRow for each add-on in Step 6. */}
+            {addOns.map((item) => (
+              <OptionRow
+                key={item.id}
+                label={item.label}
+                price={item.price}
+                selected={selectedIds.includes(item.id)}
+                onPress={() => onToggle(item.id)}
+              />
+            ))}
           </ScrollView>
 
           <Pressable onPress={onClose} style={styles.doneButton}>
@@ -37,7 +53,7 @@ export default function AddOnModal({
         </View>
       </View>
     </Modal>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -76,4 +92,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '800',
   },
-});
+})
