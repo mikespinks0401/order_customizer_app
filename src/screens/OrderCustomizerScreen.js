@@ -25,7 +25,7 @@ export default function OrderCustomizerScreen() {
   const [orderAdded, setOrderAdded] = useState(false);
 
   // TODO 3: Create instructionsRef with useRef() in Step 4.
-
+  const instructionsRef = useRef(null);
   function handleDecrease() {
   setQuantity((current) => Math.max(1, current - 1));
   }
@@ -65,6 +65,7 @@ export default function OrderCustomizerScreen() {
 
           <TextInput
             // TODO 8: Connect ref={instructionsRef} in Step 4.
+            ref={instructionsRef}
             multiline
             onChangeText={setInstructions}
             placeholder="Add a note for the kitchen"
@@ -75,7 +76,7 @@ export default function OrderCustomizerScreen() {
 
           <Pressable
             // TODO 9: Focus the TextInput with useRef() in Step 4.
-            onPress={() => {}}
+          onPress={() => instructionsRef.current?.focus()}
           >
             <Text style={styles.focusLink}>Tap to focus instructions</Text>
           </Pressable>
